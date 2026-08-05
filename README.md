@@ -18,7 +18,7 @@ FruitShoot/
 ## 게임 설명
 
 ### 1. 게임 시작
-<img src="./OpenCVProject/OpenCVTest/images/game_start.png" width="400" height=""/>
+<img src="OpenCVProject/OpenCVTest/images/game_start.png" width="400" height=""/>
 
 아무 키나 입력을 하면 게임이 실행된다.
 
@@ -32,14 +32,14 @@ FruitShoot/
 
 | Level 1 | Level 2 |
 | --- | --- |
-| <img src="./OpenCVProject/OpenCVTest/images/Level1.png" width="400" height=""/> | <img src="./OpenCVProject/OpenCVTest/images/Level1.png" width="400" height=""/> |
+| <img src="OpenCVProject/OpenCVTest/images/Level1.png" width="400" height=""/> | <img src="OpenCVProject/OpenCVTest/images/Level2.png" width="400" height=""/> |
 
 ### 3. 클릭 이펙트 및 Cut 이미지
-<img src="./OpenCVProject/OpenCVTest/images/cut.png" width="200" height=""/>
+<img src="OpenCVProject/OpenCVTest/images/cut.png" width="200" height=""/>
 
 
 ### 4. 게임 종료
 
 | Win | Lose |
 | --- | --- |
-| <img src="./OpenCVProject/OpenCVTest/images/clear.png" width="400" height="100"/> | <img src="./OpenCVProject/OpenCVTest/images/end.png" width="400" height="100"/> |
+| <img src="OpenCVProject/OpenCVTest/images/clear.png" width="400"/> | <img src="OpenCVProject/OpenCVTest/images/end.png" width="400"/> |
