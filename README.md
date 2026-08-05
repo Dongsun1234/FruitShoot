@@ -36,10 +36,10 @@ FruitShoot/
     </tr> 
     <tr> 
         <td>
-            <img src="OpenCVProject/OpenCVTest/images/Level1.png" width="400" height="">
+            <img src="OpenCVProject/OpenCVTest/images/level1.png" width="400">
         </td> 
         <td>
-            <img src="OpenCVProject/OpenCVTest/images/Level2.png" width="400" height="">
+            <img src="OpenCVProject/OpenCVTest/images/level2.png" width="400">
         </td> 
     </tr> 
 </table>
@@ -56,10 +56,10 @@ FruitShoot/
     </tr> 
     <tr> 
         <td>
-            <img src="OpenCVProject/OpenCVTest/images/clear.png" width="350" height="150">
+            <img src="OpenCVProject/OpenCVTest/images/clear.PNG" width="350" height="150">
         </td> 
         <td>
-            <img src="OpenCVProject/OpenCVTest/images/end.png" width="350" height="150">
+            <img src="OpenCVProject/OpenCVTest/images/end.PNG" width="350" height="150">
         </td> 
     </tr> 
 </table>
