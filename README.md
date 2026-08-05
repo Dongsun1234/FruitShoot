@@ -43,3 +43,9 @@ FruitShoot/
 | Win | Lose |
 | --- | --- |
 | <img src="./OpenCVProject/OpenCVTest/images/clear.png" width="400" height="200"> | <img src="./OpenCVProject/OpenCVTest/images/end.png" width="400" height="200"> |
+
+### 5. 버전
+```version
+Tool: Visual Studio 2022
+OpenCV: opencv-4.12.0
+```
