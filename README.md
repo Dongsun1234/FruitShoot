@@ -18,7 +18,7 @@ FruitShoot/
 ## 게임 설명
 
 ### 1. 게임 시작
-<img src="OpenCVProject/OpenCVTest/images/game_start.png" width="400" height=""/>
+<img src="./OpenCVProject/OpenCVTest/images/game_start.png" width="400"/>
 
 아무 키나 입력을 하면 게임이 실행된다.
 
@@ -30,36 +30,16 @@ FruitShoot/
 4. 600점이 되면 사용자가 이기게 되는 UI와 그 전에 끝나면 지게 되는 UI를 구성
 ```
 
-<table> 
-    <tr> 
-    <th>Level 1</th> <th>Level 2</th> 
-    </tr> 
-    <tr> 
-        <td>
-            <img src="OpenCVProject/OpenCVTest/images/level1.png" width="400">
-        </td> 
-        <td>
-            <img src="OpenCVProject/OpenCVTest/images/level2.png" width="400">
-        </td> 
-    </tr> 
-</table>
+| Level1 | Level2 |
+| --- | --- |
+| <img src="./OpenCVProject/OpenCVTest/images/level1.png" width="400"> | <img src="./OpenCVProject/OpenCVTest/images/level2.png" width="400"> |
 
 ### 3. 클릭 이펙트 및 Cut 이미지
-<img src="OpenCVProject/OpenCVTest/images/cut.png" width="200" height=""/>
+<img src="./OpenCVProject/OpenCVTest/images/cut.png" width="200" height=""/>
 
 
 ### 4. 게임 종료
 
-<table> 
-    <tr> 
-    <th>Win</th> <th>Lose</th> 
-    </tr> 
-    <tr> 
-        <td>
-            <img src="OpenCVProject/OpenCVTest/images/clear.PNG" width="350" height="150">
-        </td> 
-        <td>
-            <img src="OpenCVProject/OpenCVTest/images/end.PNG" width="350" height="150">
-        </td> 
-    </tr> 
-</table>
+| Win | Lose |
+| --- | --- |
+| <img src="./OpenCVProject/OpenCVTest/images/clear.png" width="400" height="200"> | <img src="./OpenCVProject/OpenCVTest/images/end.png" width="400" height="200"> |
