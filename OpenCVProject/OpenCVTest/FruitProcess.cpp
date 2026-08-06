@@ -6,6 +6,18 @@
 
 FruitProcess::FruitProcess()
 {
+    count_score = 0;
+	count_life = 3;
+
+    retryFlag = false;
+    cancelFlag = false;
+    resumeFlag = false;
+
+    img = cv::Mat(570, 600, CV_8UC3, cv::Scalar::all(0));
+   
+	std::memset(random_xpos, 0, sizeof(random_xpos));
+    std::memset(random_ypos, 0, sizeof(random_ypos));
+
     img_watermelon_cut = cv::imread("images\\watermelon_cut.png");
     img_banana_cut = cv::imread("images\\banana_cut.png");
     img_click = cv::imread("images\\bomb.png", cv::IMREAD_UNCHANGED);
@@ -20,6 +32,28 @@ FruitProcess::FruitProcess()
     mask_bomb = channels_bomb[3];
 
     cv::cvtColor(img_click, img_click, cv::COLOR_BGRA2BGR);
+}
+
+void  FruitProcess::initParameters()
+{
+    count_score = 0;
+    count_life = 3;
+    retryFlag = false;
+    cancelFlag = false;
+    resumeFlag = false;
+
+    std::memset(random_xpos, 0, sizeof(random_xpos));
+    std::memset(random_ypos, 0, sizeof(random_ypos));
+}
+
+bool FruitProcess::getRetryFlag()
+{
+    return retryFlag;
+}
+
+bool FruitProcess::getCancelFlag()
+{
+    return cancelFlag;
 }
 
 cv::Mat FruitProcess::getBackground()
@@ -104,27 +138,50 @@ void FruitProcess::gameProcess(cv::Mat img_wrotated, cv::Mat img_brotated, cv::M
 
 }
 
+void FruitProcess::btnDraw(cv::Mat img)
+{
+    cv::rectangle(img, cv::Rect(100, 400, 150, 100), cv::Scalar::all(128), cv::FILLED);
+    cv::putText(img, "Retry", cv::Point(120, 460), cv::FONT_HERSHEY_SIMPLEX, 1.5, cv::Scalar(0, 0, 0), 3);
+    cv::rectangle(img, cv::Rect(350, 400, 160, 100), cv::Scalar::all(128), cv::FILLED);
+    cv::putText(img, "Cancel", cv::Point(350, 460), cv::FONT_HERSHEY_SIMPLEX, 1.5, cv::Scalar(0, 0, 0), 3);
+
+	resumeFlag = true;
+}
+
 void FruitProcess::gameClear(int font, double fontscale, std::string mystr_score, cv::Point location_text)
 {
-    cv::Mat img_clear = cv::imread("images\\clear.png");
+    cv::Mat img_clear = cv::imread("images\\win.png");
     cv::resize(img_clear, img_clear, cv::Size(img.cols, img.rows));
+    cv::putText(img_clear, "Score:" + mystr_score, location_text, font, fontscale, cv::Scalar(0, 255, 0));
 
-    img_clear.copyTo(img);
-    cv::putText(img, "Score:" + mystr_score, location_text, font, fontscale, cv::Scalar(0, 255, 0));
+    btnDraw(img_clear);
 
-    imshow("image", img);
-    cv::waitKey(0);
+    while (1)
+    {        
+        cv::imshow("image", img_clear);
+        cv::waitKey(1);
+
+        if (!retryFlag || !cancelFlag)
+            break;
+    }
 }
 
 void FruitProcess::gameLose(int font, double fontscale, std::string mystr_score, cv::Point location_text)
 {
 
-    cv::Mat img_end = cv::imread("images\\end.png");
+    cv::Mat img_end = cv::imread("images\\lose.png");
     cv::resize(img_end, img_end, cv::Size(img.cols, img.rows));
     cv::putText(img_end, "Score:" + mystr_score, location_text, font, fontscale, cv::Scalar(0, 255, 0));
 
-    imshow("image", img_end);
-    cv::waitKey(0);
+    btnDraw(img_end);	
+
+    while (1)
+    {
+        cv::imshow("image", img_end);
+        cv::waitKey(1);
+        if (!retryFlag || !cancelFlag)
+            break;
+    }
 }
 
 void FruitProcess::mouse_callback(int event, int x, int y, int flag, void* userdata)
@@ -137,29 +194,39 @@ void FruitProcess::mouse_callback(int event, int x, int y, int flag, void* userd
     switch (event) {
 
     case cv::EVENT_LBUTTONDOWN:
-        for (int i = 0; i < 5; i++)
+        if (self->resumeFlag)
         {
-            if (x >= self->random_xpos[i] && x <= self->random_xpos[i] + Width && y >= Height * i && y <= Height * i + Height)                
-            {
-                if(i % 2 == 0)
-                    self->img_watermelon_cut.copyTo(self->img(cv::Rect(self->random_xpos[i], (Height * i), Width, Height))); // x축에 의해 카피
-                else
-                    self->img_banana_cut.copyTo(self->img(cv::Rect(self->random_xpos[i], (Height * i), Width, Height))); // x축에 의해 카피
+            if (x >= 100 && x <= 250 && y >= 400 && y <= 500) // Retry 버튼 영역 안을 클릭하면                
+                self->retryFlag = true;
+            if (x >= 350 && x <= 510 && y >= 400 && y <= 500) // Cancel 버튼 영역 안을 클릭하면
+                self->cancelFlag = true;
+        }
+        else
+        {
+            for (int i = 0; i < 5; i++)
+            {          
+                if (x >= self->random_xpos[i] && x <= self->random_xpos[i] + Width && y >= Height * i && y <= Height * i + Height)
+                {
+                    if (i % 2 == 0)
+                        self->img_watermelon_cut.copyTo(self->img(cv::Rect(self->random_xpos[i], (Height * i), Width, Height))); // x축에 의해 카피
+                    else
+                        self->img_banana_cut.copyTo(self->img(cv::Rect(self->random_xpos[i], (Height * i), Width, Height))); // x축에 의해 카피
 
-                self->random_xpos[i] = 0; // 컷이 되면 x축 0으로 초기화
+                    self->random_xpos[i] = 0; // 컷이 되면 x축 0으로 초기화
 
-				isCut = true;
-            }
-            if (x >= Width * i && x <= Width * i + Width && y >= self->random_ypos[i] && y <= self->random_ypos[i] + Height)
-            {
-                if (i % 2 == 0)
-                    self->img_watermelon_cut.copyTo(self->img(cv::Rect(Width * i, self->random_ypos[i], Width, Height))); // y축에 의해 카피
-                else
-                    self->img_banana_cut.copyTo(self->img(cv::Rect(Width * i, self->random_ypos[i], Width, Height))); // y축에 의해 카피
+                    isCut = true;
+                }
+                if (x >= Width * i && x <= Width * i + Width && y >= self->random_ypos[i] && y <= self->random_ypos[i] + Height)
+                {
+                    if (i % 2 == 0)
+                        self->img_watermelon_cut.copyTo(self->img(cv::Rect(Width * i, self->random_ypos[i], Width, Height))); // y축에 의해 카피
+                    else
+                        self->img_banana_cut.copyTo(self->img(cv::Rect(Width * i, self->random_ypos[i], Width, Height))); // y축에 의해 카피
 
-                self->random_ypos[i] = 0; // 컷이 되면 y축 0으로 초기화
+                    self->random_ypos[i] = 0; // 컷이 되면 y축 0으로 초기화
 
-                isCut = true;
+                    isCut = true;
+                }
             }
 
             self->img_click.copyTo(self->img(cv::Rect(x - 50/2, y- 50/2, 50, 50)),self->mask_bomb);

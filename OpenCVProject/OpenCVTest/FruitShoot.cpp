@@ -19,7 +19,6 @@ int main()
     std::string mystr_score;
     std::string mystr_life;
 
-    int random_xpos[5] = { 0 };
     FruitProcess* fruit_pro = new FruitProcess();
 
     cv::Mat img = fruit_pro->getBackground(); //3채널
@@ -87,16 +86,40 @@ int main()
         if (fruit_pro->getScore() >= CLEAR) // 600점 달성 시
         {
             fruit_pro->gameClear(font, fontscale, mystr_score, location_text);
-            cv::destroyAllWindows();
-            delete fruit_pro;
-            break;
+            cv::setMouseCallback("image", FruitProcess::mouse_callback, fruit_pro);
+
+            if (fruit_pro->getRetryFlag())
+            {
+                fruit_pro->initParameters();
+                continue;
+            }
+            if (fruit_pro->getCancelFlag())
+            {
+                fruit_pro->initParameters();
+                cv::destroyAllWindows();
+                delete fruit_pro;
+                break;
+            }
+            continue; // 마우스 선택 이전엔 이미지 출력 X
         }
-        if (fruit_pro->getLife() == 0) // 기회가 0일 시
+        if (fruit_pro->getLife() < 1) // 기회가 1 밑으로 떨어질시
         {
             fruit_pro->gameLose(font, fontscale, mystr_score, location_text);
-            cv::destroyAllWindows();
-            delete fruit_pro;
-            break;
+            cv::setMouseCallback("image", FruitProcess::mouse_callback, fruit_pro);
+
+            if (fruit_pro->getRetryFlag())
+            {
+				fruit_pro->initParameters();
+                continue;
+            }
+            if (fruit_pro->getCancelFlag())
+            {
+                fruit_pro->initParameters();
+                cv::destroyAllWindows();
+                delete fruit_pro;
+                break;
+            }
+			continue; // 마우스 선택 이전엔 이미지 출력 X
         }
 
         cv::putText(img, "Score:"+ mystr_score, location_text, font, fontscale, cv::Scalar(0, 255, 0)); // text 점수가 몇인지 출력

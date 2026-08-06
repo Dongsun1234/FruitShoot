@@ -42,7 +42,7 @@ FruitShoot/
 
 | Win | Lose |
 | --- | --- |
-| <img src="./OpenCVProject/OpenCVTest/images/clear.png" width="400" height="200"> | <img src="./OpenCVProject/OpenCVTest/images/end.png" width="400" height="200"> |
+| <img src="./OpenCVProject/OpenCVTest/images/win.png" width="400" height="200"> | <img src="./OpenCVProject/OpenCVTest/images/lose.png" width="400" height="200"> |
 
 ### 5. 버전
 ```version

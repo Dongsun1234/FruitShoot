@@ -7,16 +7,19 @@
 class FruitProcess
 {
 private:
-    int count_score = 0;
-    int count_life = 3;
+    int count_score;
+    int count_life;
     cv::Mat img_watermelon_cut, img_banana_cut;
     cv::Mat img_click, mask_bomb;
+    bool retryFlag;
+    bool cancelFlag;
+    bool resumeFlag;
 
-    cv::Mat img = cv::Mat(570, 600, CV_8UC3, cv::Scalar::all(0));
+    cv::Mat img;
 
 public:
-    int random_xpos[5] = { 0 };
-    int random_ypos[5] = { 0 };
+    int random_xpos[5];
+    int random_ypos[5];
 
 public:
     FruitProcess();
@@ -25,8 +28,12 @@ public:
     void getClick();
     int getLife();
     void miunsLife();
+    bool getRetryFlag();
+    bool getCancelFlag();
+	void initParameters();
     void startScreen(double fontscale);
     void gameProcess(cv::Mat img_wrotated, cv::Mat img_brotated, cv::Mat rotatedMask_wm, cv::Mat rotatedMask_bm, cv::Point location_level, int speed, int level);
+    void btnDraw(cv::Mat img);
     void gameClear(int font, double fontscale, std::string mystr_score, cv::Point location_text);
     void gameLose(int font, double fontscale, std::string mystr_score, cv::Point location_text);
     static void mouse_callback(int event, int x, int y, int flag, void* userdata);
