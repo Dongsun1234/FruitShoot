@@ -38,12 +38,12 @@ FruitShoot/
 <img src="./OpenCVProject/OpenCVTest/images/cut.png" width="200" height=""/>
 
 
-### 4. 게임 종료
+### 4. 게임 종료 및 재시작,종료 선택
 
 | Win | Lose |
 | --- | --- |
-| <img src="./OpenCVProject/OpenCVTest/images/win.png" width="400" height="200"> | <img src="./OpenCVProject/OpenCVTest/images/lose.png" width="400" height="200"> |
-
+| <img src="./OpenCVProject/OpenCVTest/images/win1.png" width="400" height="400"> | <img src="./OpenCVProject/OpenCVTest/images/lose1.png" width="400" height="400"> |
+ 
 ### 5. 버전
 ```version
 Tool: Visual Studio 2022
